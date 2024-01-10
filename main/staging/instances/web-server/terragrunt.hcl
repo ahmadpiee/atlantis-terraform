@@ -7,6 +7,7 @@ include {
 }
 
 inputs = {
-  auto_create_subnetworks = false
-  ip_cidr_range           = "192.168.100.0/24"
+  tags = ["http-server", "https-server"]
+  network = "default"
+  subnetwork = "default"
 }
