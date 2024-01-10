@@ -2,15 +2,6 @@ terraform {
   source = "../../../module/gcp/vpc"
 }
 
-remote_state {
-  backend = "gcs"
-  config = {
-    bucket = "staging-asofdevlabs"
-    prefix = "${path_relative_to_include()}/terraform.tfstate"
-    credentials = "/etc/atlantis/staging-credentials.json"
-  }
-}
-
 include {
   path = find_in_parent_folders()
 }
