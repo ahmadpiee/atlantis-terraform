@@ -12,7 +12,7 @@
 
 ## **Pre-Requirements**
 
-- learn more about terraform & terragrunt [here](https://github.com/ahmadpiee/atlantis-terraform)
+- learn more about terraform & terragrunt [here](https://github.com/ahmadpiee/terraform-sessions)
 
   ## **Content:**
 
