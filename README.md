@@ -8,6 +8,7 @@
 2. Install Terraform, terragrunt, and atlantis
 3. Generate Github Token
 4. Start Atlantis
+5. Create Github Weebhook
 
 ## **Pre-Requirements**
 
@@ -53,5 +54,5 @@
          - run: terragrunt apply --terragrunt-non-interactive -no-color $PLANFILE
    ```
    and running, and testing it by github command:
-   `sudo atlantis server --atlantis-url="http://Your_IP4_Public" --gh-user="Your_Github_Username" --gh-token="Your_Github_Token" --gh-webhook-secret="Your_Webhook_Secret" --repo-allowlist="Your_Repository_URL" --port=80 --repo-config="/etc/atlantis/atlantis.yaml"`
+   `sudo atlantis server --atlantis-url="http://Your_IP4_Public" --gh-user="Your_Github_Username" --gh-token="Your_Github_Token" --gh-webhook-secret="Your_Webhook_Secret" --repo-allowlist="Your_Repository_URL --port=80"`
 5.

@@ -1,3 +1,7 @@
 credentials.json
 production-credentials.json
 staging-credentials.json
+
+# resources
+.terraform*
+.terragrunt*
