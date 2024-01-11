@@ -10,7 +10,7 @@
 4. Start Atlantis
 5. Create Github Weebhook
 6. Create systemd atlantis.service
-7. Reverse Proxy With NGINX & Certbot
+7. Reverse Proxy With NGINX & Certbot, and check auto renewal
 8. Make command shortcut
 
 ## **Pre-Requirements**
@@ -135,6 +135,13 @@
    - next we can make ssl certificate wit **Certbot**, to install cerbot running this command `sudo apt install certbot python3-certbot-nginx && sudo nginx -t && sudo systemctl reload nginx`
    - add your domain to nginx/certbot challange by running `sudo certbot --nginx -d example.com -d www.example.com` make sure to change your domain, and point your A record to your ip4 public in your DNS Zone
    - now you can access you atlantis app by go to your domain with https
+   - last, you need to check a certbot auto renewal test by running the following command:
+
+     ```
+     sudo systemctl status certbot.timer
+
+     sudo certbot renew --dry-run
+     ```
 
 8. **Make command shortcut:**
 
