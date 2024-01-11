@@ -78,7 +78,6 @@
 
 6. **Create systemd atlantis.service:** the purpose is to running atlantis server at startup, and running atlantis on detach/background mode
 
-   - `cd ~ && echo $PATH`
    - `sudo vim /etc/systemd/system/atlantis.service`
    - in the editor copy paste the following script (note that the port now is running on 8080 so you have to allow in your firewall, and also you need to adjust the payload url on your github webhook):
 
