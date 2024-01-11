@@ -6,12 +6,13 @@
 
 1. Create VM server and allow http firewall
 2. Install Terraform, terragrunt, and atlantis
-3. Generate Github Token
-4. Start Atlantis
-5. Create Github Weebhook
-6. Create systemd atlantis.service
-7. Reverse Proxy With NGINX & Certbot, and check auto renewal
-8. Make command shortcut
+3. Create credentials for you terraform access to your GCP
+4. Generate Github Token
+5. Start Atlantis
+6. Create Github Weebhook
+7. Create systemd atlantis.service
+8. Reverse Proxy With NGINX & Certbot, and check auto renewal
+9. Make command shortcut
 
 ## **Pre-Requirements**
 
@@ -27,9 +28,13 @@
 - install terragrunt : `wget https://github.com/gruntwork-io/terragrunt/releases/download/<change_with_the_latest_version>/terragrunt_linux_amd64` (make sure your CPU is match with the repository, in this case we download terragrunt_linux_amd64), and then you need to rename the downloaded file to `terragrunt`, and you need to give permission to the binary by running `chmod u+x terragrunt`, and last you need to move the binary to the `/usr/local/bin` folder by running `sudo mv terragrunt /usr/local/bin/terragrunt`
 - install atlantis : `wget https://github.com/runatlantis/atlantis/releases/download/<change_with_the_latest_version>/atlantis_linux_amd64.zip`, and make sure the repository is match with your CPU type. after you download the file, you need to unzip it by running `unzip atlantis_linux_amd64.zip`, and then you need to move the file to the `/usr/local/bin` folder by running `sudo mv atlantis /usr/local/bin/atlantis`, don't forget to remove unused downloaded file, make sure your atlantis already installed by running `atlantis version`
 
-3. **Generate Github Token**: go to your github then click settings > developer settings > personal access tokens > Token (classic) > Generate new token (classic) > (check repo only) copy paste on your clipboard the token and save it.
+3. **Create credentials for you terraform access to your GCP:**
 
-4. **Start Atlantis:** make folder `sudo mkdir /etc/atlantis` & `cd /etc/atlantis/` & `sudo vim atlantis.yaml` and copy paste this atlantis configuration to your atlantis.yaml file:
+   - Make production & staging credentials file by running `sudo vim /etc/atlantis/production-credentials.json` and copy paste you credentials key that you generated from you IAM console, also don't forget to create your staging credentials: `sudo vim /etc/atlantis/staging-credentials.json`
+
+4. **Generate Github Token**: go to your github then click settings > developer settings > personal access tokens > Token (classic) > Generate new token (classic) > (check repo only) copy paste on your clipboard the token and save it.
+
+5. **Start Atlantis:** make folder `sudo mkdir /etc/atlantis` & `cd /etc/atlantis/` & `sudo vim atlantis.yaml` and copy paste this atlantis configuration to your atlantis.yaml file:
    ```
    repos:
    - id: /.*/
@@ -58,12 +63,12 @@
    ```
    and running, and testing it by github command:
    `sudo atlantis server --atlantis-url="http://Your_IP4_Public" --gh-user="Your_Github_Username" --gh-token="Your_Github_Token" --gh-webhook-secret="Your_Webhook_Secret" --repo-allowlist="Your_Repository_URL --port=80"`
-5. **Create Github Weebhook:**
+6. **Create Github Weebhook:**
 
    - Go to your repo's settings
    - Select Webhooks or Hooks in the sidebar
    - Click Add webhook
-   - set Payload URL to your ngrok url with /events at the end. Ex. https://c5004d84.ngrok.io/events\
+   - set Payload URL to your ip4_public url with /events at the end. Ex. https://your_ip4_public/events
    - double-check you added /events to the end of your URL.
    - set Content type to application/json
    - set Secret to your random string
@@ -76,7 +81,7 @@
    - leave Active checked
    - click Add webhook
 
-6. **Create systemd atlantis.service:** the purpose is to running atlantis server at startup, and running atlantis on detach/background mode
+7. **Create systemd atlantis.service:** the purpose is to running atlantis server at startup, and running atlantis on detach/background mode
 
    - `sudo vim /etc/systemd/system/atlantis.service`
    - in the editor copy paste the following script (note that the port now is running on 8080 so you have to allow in your firewall, and also you need to adjust the payload url on your github webhook):
@@ -98,7 +103,7 @@
      - `sudo systemctl start atlantis`
      - `sudo systemctl status atlantis` to see the status
 
-7. **Reverse Proxy With NGINX & Certbot:**
+8. **Reverse Proxy With NGINX & Certbot:**
 
    - install nginx: `sudo apt install nginx -y`
    - enable nginx: `sudo systemctl enable nginx`
@@ -142,7 +147,7 @@
      sudo certbot renew --dry-run
      ```
 
-8. **Make command shortcut:**
+9. **Make command shortcut:**
 
    - created **.bash_aliases** file for config all your aliases: `sudo vim ~/.bash_aliases`
    - and put all the following alias command into your bash aliases file:
