@@ -8,6 +8,5 @@ include {
 
 inputs = {
   tags = ["http-server", "https-server"]
-  network = "default"
-  subnetwork = "default"
+  network = "vpc-ansible"
 }
