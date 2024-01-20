@@ -13,5 +13,5 @@ inputs = {
   zone = "asia-southeast2-a"
   credentials = "/etc/atlantis/production-credentials.json"
   name = "${basename(get_terragrunt_dir())}" // function where terragrunt refer to the name of resource directory
-  machine_type = "e2-medium"
+  machine_type = "e2-small"
 }
